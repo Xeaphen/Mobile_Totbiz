@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">TOTBIZ MEETING APP</string>
+    <string name="ch">Choose</string>
+    <string name="up">Upload</string>
+
+    <string name="adminId">firebase@gmail.com</string>
+    <string name="adminPw">firebase</string>
+
+    <string name="lgn">Login</string>
+    <string name="reg">Register</string>
+
+    <string name="ins">Insert</string>
+    <string name="tUpload">Upload Document</string>
+    <string name="hit1">Name of Task</string>
+    <string name="hit2">Description Of Task</string>
+
+    <string name="myProfile">My Profile</string>
+    <string name="logout">Logout</string>
+
+    <string name="etTitle">Title</string>
+    <string name="etDesc">Description</string>
+    <string name="etMDate">Meeting Date</string>
+    <string name="etStatus">Active</string>
+    <string name="btnUp">Upload</string>
+    <string name="btnDown">Download</string>
+    <string name="btnSubmit">Submit</string>
+    <string name="btnCancel">Cancel</string>
+
+    <string name="btnImage">Profile Picture</string>
+    <string name="fName">First Name</string>
+    <string name="lName">Last Name</string>
+    <string name="dob">Date of Birth</string>
+    <string name="address">Address</string>
+
+    <string name="proPic">Profile Picture</string>
+    <string name="btnChoose">Choose</string>
+</resources>
