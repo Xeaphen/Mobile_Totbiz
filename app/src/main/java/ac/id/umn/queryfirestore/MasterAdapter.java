@@ -1,8 +1,5 @@
 package ac.id.umn.queryfirestore;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.firestore.DocumentSnapshot;
-
-import io.opencensus.resource.Resource;
 
 public class MasterAdapter extends FirestoreRecyclerAdapter<MasterModel, MasterAdapter.ProductViewHolder> {
     private OnItemClickListener listener;

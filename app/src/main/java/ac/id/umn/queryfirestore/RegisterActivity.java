@@ -11,16 +11,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.text.DateFormat;
-import android.inputmethodservice.Keyboard;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,7 +39,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -53,9 +48,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.Delayed;
 
 public class RegisterActivity extends AppCompatActivity {
     private final int CAMERA_REQUEST_CODE = 124;
@@ -146,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String pass = password.getText().toString();
 
                 if(em.isEmpty() || pass.isEmpty()) {
-                    Toast.makeText(RegisterActivity.this, "Salah",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Email atau password harus diisi",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     mAuth.createUserWithEmailAndPassword(em, pass).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -171,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 password.setText("");
                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             } else
-                                Toast.makeText(RegisterActivity.this, "Salah", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

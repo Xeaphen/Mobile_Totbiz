@@ -26,14 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddActivity"
+        <activity            android:name=".AddActivity"
             android:screenOrientation="locked" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="locked" />
-        <activity
-            android:name=".UploadTest"
             android:screenOrientation="locked" />
 
         <provider

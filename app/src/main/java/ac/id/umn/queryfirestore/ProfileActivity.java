@@ -10,22 +10,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,16 +30,10 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.module.AppGlideModule;
 
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -56,7 +43,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -115,7 +101,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         StorageReference storage = FirebaseStorage.getInstance().getReference("img/" +uid);
-//                .getReferenceFromUrl("gs://uasmobile-2f57b.appspot.com/img");
         StorageReference islandRef = storage.child(uid+".png");
 
         // Load the image using Glide
@@ -180,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Toast.makeText(ProfileActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, "Error!", Toast.LENGTH_SHORT).show();
         }
 
         // Return the file target for the photo based on filename
@@ -228,7 +213,6 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 StorageReference storage = FirebaseStorage.getInstance().getReference("img/" +uid);
-//                .getReferenceFromUrl("gs://uasmobile-2f57b.appspot.com/img");
                 StorageReference islandRef = storage.child(uid+".png");
 
                 // Load the image using Glide
@@ -247,7 +231,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             StorageReference storage = FirebaseStorage.getInstance().getReference("img/" +uid);
-//                .getReferenceFromUrl("gs://uasmobile-2f57b.appspot.com/img");
             StorageReference islandRef = storage.child(uid+".png");
 
             // Load the image using Glide

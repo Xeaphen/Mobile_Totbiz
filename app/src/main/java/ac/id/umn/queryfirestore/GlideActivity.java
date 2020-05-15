@@ -19,7 +19,6 @@ public class GlideActivity extends AppGlideModule {
     @Override
     public void registerComponents(@NonNull Context context, @NonNull com.bumptech.glide.Glide glide,
                                    @NonNull Registry registry) {
-//        super.registerComponents(context, glide, registry);
         registry.append(StorageReference.class, InputStream.class, new FirebaseImageLoader.Factory());
     }
 }

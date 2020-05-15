@@ -2,14 +2,15 @@ package ac.id.umn.queryfirestore;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringDef;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,6 +38,8 @@ import java.util.Calendar;
 
 public class AddActivity extends AppCompatActivity {
     private static final int REQUEST_DOC = 3;
+    private final int CAMERA_REQUEST_CODE = 124;
+    private final int GALLERY_REQUEST_CODE = 125;
 
     private EditText title, desc, mDate;
     private Spinner status;
@@ -142,7 +145,6 @@ public class AddActivity extends AppCompatActivity {
                             Timestamp.now(),
                             false
                     );
-                    Toast.makeText(AddActivity.this, "stats: "+master.getStatus(),Toast.LENGTH_SHORT).show();
 
                     Intent hasil = new Intent();
                     if (getIntent().getAction() == "EDIT") hasil.putExtra("id", id);
@@ -175,12 +177,11 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void downloadFile(String title) {
+        checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, GALLERY_REQUEST_CODE);
         if((getIntent().getAction().equals("EDIT") && btnDoc.getText().toString().equals("UPLOAD"))|| getIntent().getAction().equals("ADD")){
             Intent intent = new Intent();
             intent.setType("application/pdf");
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            //        intent.addCategory(Intent.CATEGORY_OPENABLE);
-            //        intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
             try {
                 startActivityForResult(Intent.createChooser(intent, "Select Doc"), REQUEST_DOC);
             } catch (ActivityNotFoundException e) {
@@ -220,7 +221,6 @@ public class AddActivity extends AppCompatActivity {
         if(requestCode == REQUEST_DOC && resultCode == RESULT_OK){
             filepath = data.getData();
             file = new File(filepath.getPath());
-            Toast.makeText(getApplicationContext(), file.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -231,5 +231,33 @@ public class AddActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(AddActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
+            // Requesting the permission
+            ActivityCompat.requestPermissions(AddActivity.this, new String[] { permission }, requestCode);
+        } else {
+            Toast.makeText(AddActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(AddActivity.this, "Camera Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(AddActivity.this, "Camera Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (requestCode == GALLERY_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(AddActivity.this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(AddActivity.this, "Storage Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         password = password1.getText().toString();
 
         if(email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Salah",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Email atau password salah",Toast.LENGTH_SHORT).show();
         }
         else{
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -89,29 +89,5 @@ public class LoginActivity extends AppCompatActivity {
     public void daftar(View view) {
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         finish();
-//        email = email1.getText().toString();
-//        password = password1.getText().toString();
-//
-//        if(email.isEmpty() || password.isEmpty()) {
-//            Toast.makeText(LoginActivity.this, "Salah",Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
-//                    if (task.isSuccessful()) {
-//    //                    FirebaseUser user = mAuth.getCurrentUser();
-//    //                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//    //                    startActivity(intent);
-//                        Toast.makeText(LoginActivity.this, "Register Success!",Toast.LENGTH_LONG).show();
-//                        email1.setText("");
-//                        password1.setText("");
-//
-//                    } else {
-//                        Toast.makeText(LoginActivity.this, "Salah", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-//        }
     }
 }

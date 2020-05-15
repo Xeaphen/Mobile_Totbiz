@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -89,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(UserModel.class);
-
-                Toast.makeText(MainActivity.this, "GET USER " + user.getfName() , Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -121,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 final CharSequence[] options = {"Yes", "No"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Are you sure ?");
+                builder.setTitle("Are you sure to delete this?");
 
                 builder.setItems(options, new DialogInterface.OnClickListener() {
 
@@ -129,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         if (options[item].equals("Yes")) {
                             adapter.deleteItem(viewHolder.getAdapterPosition());
+                            Toast.makeText(MainActivity.this,"Delete success", Toast.LENGTH_SHORT).show();
                         } else if (options[item].equals("No")) {
                             Toast.makeText(MainActivity.this,"Delete canceled", Toast.LENGTH_SHORT).show();
                             adapter.notifyItemChanged(viewHolder.getAdapterPosition());
@@ -147,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
                 assert product != null;
                 updateIntent(id, product);
-
-                Toast.makeText(getApplicationContext(),"Position : " + position + " ID : " + id + " " + product.getStatus(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -177,11 +172,6 @@ public class MainActivity extends AppCompatActivity {
         }else {
             Toast.makeText(this,"Signed in success",Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void pindahUpload(View view) {
-        Intent i = new Intent(MainActivity.this, UploadTest.class);
-        startActivity(i);
     }
 
     public void addIntent(View view){
@@ -214,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 if(data.getStringExtra("file") != null)
                     file = Uri.parse(data.getStringExtra("file"));
                 addNewMaster(master,file);
-                Toast.makeText(getApplicationContext(),"Item Registered {  }", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"Item Registered", Toast.LENGTH_SHORT);
             }
         }
         if(requestCode == REQUEST_EDIT) { //update
@@ -233,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
     private void uploadFile(Uri filePath, String id){
         if(filePath != null)
         {
-            Toast.makeText(getApplicationContext(), filePath.toString(), Toast.LENGTH_SHORT).show();
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
